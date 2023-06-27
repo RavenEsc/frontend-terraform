@@ -48,7 +48,7 @@ resource "aws_s3_object" "csstyle" {
   bucket = var.bucketname
   content_type = "text/css"
   server_side_encryption = "AES256"
-  key    = "style.css"
+  key    = "my-css-for-resume.css"
   source = "Web-Frontend/my-css-for-resume.css"
 
   depends_on = [ aws_s3_bucket.buck ]

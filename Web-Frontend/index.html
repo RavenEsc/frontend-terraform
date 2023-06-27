@@ -7,6 +7,27 @@
     <link href="my-css-for-resume.css" rel="stylesheet" type="text/css">
 </head>
 
+<script>
+    (function() {
+  fetch('https://uvymswphd5.execute-api.us-west-2.amazonaws.com/prod')
+  .then(res => {
+      if (!res.ok) {
+          throw new Error('Network response was not ok');
+      }
+      return res.json();
+  })
+  .then(data => {
+      var counter = data.body.counter; // set the counter value from the response
+      var counterDisplay = document.getElementById("counter");
+      counterDisplay.innerHTML = counter;
+      console.log(data);
+  })
+  .catch(error => {
+      console.error('There was a problem with the fetch operation:', error);
+  });
+})();
+</script>
+
 <top>
 <!--<button type="button"><img scr="https://media.licdn.com/dms/image/D4E35AQH765uFMinKRQ/profile-framedphoto-shrink_200_200/0/1676686113202?e=1681761600&v=beta&t=DGASXNSrklAi_dJfNKWpQJKu83fJqN2jsiwmc441LKc" alt="Profile Image">LinkedIn</button>-->
 <script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
@@ -19,7 +40,10 @@
     <h1>Raven Spencer</h1>
 </Header1>
 
-<br><br>
+<br>
+
+<n><span id="counter"></span></n>
+people have visited this site.
 
 <Skills>
     <h3> <bigText>93%</bigText> of the top skills employers in my field look for... </h3>

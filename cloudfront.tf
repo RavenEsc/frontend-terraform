@@ -16,7 +16,8 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   default_root_object = "index.html"
   http_version = "http2"
 
-  # aliases = ["ravens-resume-crc.com", "*.ravens-resume-crc.com"]
+
+  aliases = [var.domainname, "*.${var.domainname}"]
 
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
@@ -51,13 +52,12 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   }
 
   viewer_certificate {
-    cloudfront_default_certificate = true
-    # acm_certificate_arn = aws_acm_certificate_validation.cf_cert_validation.certificate_arn
+    acm_certificate_arn = aws_acm_certificate_validation.cf_cert_validation.certificate_arn
     minimum_protocol_version = "TLSv1.2_2021"
+    ssl_support_method = "sni-only"
   }
-}
 
-### THE FUN, check here for errors!
+}
 
 # aws ssl certificate for cloudfront
 
@@ -69,14 +69,41 @@ provider "aws" {
 
 resource "aws_acm_certificate" "cf-ssl-certificate" {
   provider = aws.acm-provider
-  # domain_name = "ravens-resume-crc.com"
+  domain_name = "*.${var.domainname}"
+  subject_alternative_names = [
+    var.domainname,
+    "*.${var.domainname}"
+  ]
   validation_method = "DNS"
-  timeouts {
-    create = "40m"
-  }
+  
 }
 
 resource "aws_acm_certificate_validation" "cf_cert_validation" {
   provider = aws.acm-provider
   certificate_arn = aws_acm_certificate.cf-ssl-certificate.arn
+
+  timeouts {
+    create = "100m"
+  }
+
+    lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource "aws_route53_record" "example" {
+  for_each = {
+    for dvo in aws_acm_certificate.cf-ssl-certificate.domain_validation_options : dvo.domain_name => {
+      name   = dvo.resource_record_name
+      record = dvo.resource_record_value
+      type   = dvo.resource_record_type
+    }
+  }
+
+  allow_overwrite = true
+  name            = each.value.name
+  records         = [each.value.record]
+  ttl             = 60
+  type            = each.value.type
+  zone_id         = data.aws_route53_zone.primary.zone_id
 }

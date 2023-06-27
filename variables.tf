@@ -13,7 +13,11 @@ variable "bucketname" {
 }
 
 variable "domainname" {
-  default = "ravens-resume-c.com"
+  default = "ravenspencer.com"
+}
+
+variable "domainnameid" {
+  default = "Z066464211V00O483WM8I"
 }
 
 variable "reg" {
