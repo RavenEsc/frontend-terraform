@@ -2,13 +2,7 @@
 h1 {
     background-color: aqua;
 }
-bigText {
-    font-size: 200%;
-}
-Skills {
-    color:blue;
-    background-color: darkcyan;
-}
+
 li {
     display: block;
     background-attachment: fixed;
