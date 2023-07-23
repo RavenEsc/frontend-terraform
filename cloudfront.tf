@@ -63,7 +63,6 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
 
 provider "aws" {
   alias = "acm-provider"
-  profile = var.profilename
   region = "us-east-1"
 }
 
