@@ -9,7 +9,7 @@ terraform {
     organization = "raven-for-aws"
 
     workspaces {
-      name = "raven-spen-blog-site"
+      name = "raven-spen-blog-site-front"
     }
   }
 }
