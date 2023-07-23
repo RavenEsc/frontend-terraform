@@ -58,6 +58,7 @@ resource "aws_s3_object" "csstyle" {
 resource "aws_s3_bucket_policy" "pubilc-policy" {
   bucket = aws_s3_bucket.buck.id
   policy = templatefile("s3-policy.json", { bucket = var.bucketname })
+  depends_on = [ aws_s3_bucket.buck ]
 }
 
 # Block public access to S3 bucket
