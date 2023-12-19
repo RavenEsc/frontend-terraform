@@ -27,7 +27,6 @@ resource "aws_s3_object" "test" {
   key = each.value
   source = "./${var.s3_upload_dir}/${each.value}"
   etag = filemd5("./${var.s3_upload_dir}/${each.value}")
-  content_type = "text/html"
 }
 
 # Create the S3 bucket policy resource to give public access to the web page
