@@ -1,0 +1,35 @@
+
+h1 {
+    background-color: aqua;
+}
+
+li {
+    display: block;
+    background-attachment: fixed;
+        width: 100%;
+        border: 100% darkslategrey;
+        padding: 10%;
+    margin: 3%;
+    line-height: 100%;
+    color:aquamarine;
+    font-family: verdana;
+    font-size: 110%;
+}
+
+@keyframes gradient {
+    0% {background-position: 0%}
+    100% {background-position: 200%}
+  }
+
+n {
+    background: linear-gradient(to right top, goldenrod, rgb(170, 127, 18), rgb(170, 127, 18), rgba(255, 255, 255, 0), rgb(170, 127, 18), rgb(170, 127, 18), goldenrod, rgb(170, 127, 18), rgb(170, 127, 18), rgba(255, 255, 255, 0), rgb(170, 127, 18), rgb(170, 127, 18), goldenrod );
+    background-size: 200% auto;
+    background-clip: text;
+    font-weight: bold;
+    font-size: 3rem;
+    padding-right: 1rem;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient 5s linear infinite;
+    overflow-wrap: break-word;
+  }
