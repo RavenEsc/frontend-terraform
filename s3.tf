@@ -1,7 +1,7 @@
 # Create an S3 bucket resource with specified name and tags
 resource "aws_s3_bucket" "buck" {
   bucket = var.bucketname
-
+  force_destroy = true
   tags = {
     Name        = "My bucket"
     Environment = "Dev"
