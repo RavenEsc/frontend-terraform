@@ -5,7 +5,6 @@ resource "aws_s3_bucket" "buck" {
   tags = {
     Name        = "My bucket"
     Environment = "Dev"
-    Mark        = "blog"
   }
 }
 
@@ -22,39 +21,46 @@ resource "aws_s3_bucket_website_configuration" "config" {
   }
 }
 
-# Upload the index.html file to the S3 bucket
-resource "aws_s3_object" "index" {
+resource "aws_s3_object" "test" {
+  for_each = fileset("${var.s3_upload_dir}", "**")
   bucket = var.bucketname
-  content_type = "text/html"
-  server_side_encryption = "AES256"
-  key    = "index.html"
-  # source = "Web-Frontend/index.html"
-  content = file("Web-Frontend/index.html")
-
-  depends_on = [ aws_s3_bucket.buck ]
+  key = each.value
+  source = "${var.s3_upload_dir}${each.value}"
+  etag = filemd5("${var.s3_upload_dir}${each.value}")
 }
 
-# Upload the error.html file to the S3 bucket
-resource "aws_s3_object" "error" {
-  bucket = var.bucketname
-  content_type = "text/html"
-  server_side_encryption = "AES256"
-  key    = "error.html"
-  source = "Web-Frontend/error.html"
+# # Upload the index.html file to the S3 bucket
+# resource "aws_s3_object" "index" {
+#   bucket = var.bucketname
+#   content_type = "text/html"
+#   server_side_encryption = "AES256"
+#   key    = "index.html"
+#   content = file("Web-Frontend/index.html")
 
-  depends_on = [ aws_s3_bucket.buck ]
-}
+#   depends_on = [ aws_s3_bucket.buck ]
+# }
 
-# Upload the style.css file to the S3 bucket
-resource "aws_s3_object" "csstyle" {
-  bucket = var.bucketname
-  content_type = "text/css"
-  server_side_encryption = "AES256"
-  key    = "my-css-for-resume.css"
-  source = "Web-Frontend/my-css-for-resume.css"
+# # Upload the error.html file to the S3 bucket
+# resource "aws_s3_object" "error" {
+#   bucket = var.bucketname
+#   content_type = "text/html"
+#   server_side_encryption = "AES256"
+#   key    = "error.html"
+#   content = file("Web-Frontend/error.html")
 
-  depends_on = [ aws_s3_bucket.buck ]
-}
+#   depends_on = [ aws_s3_bucket.buck ]
+# }
+
+# # Upload the style.css file to the S3 bucket
+# resource "aws_s3_object" "csstyle" {
+#   bucket = var.bucketname
+#   content_type = "text/css"
+#   server_side_encryption = "AES256"
+#   key    = "my-css-for-resume.css"
+#   content = file("Web-Frontend/my-css-for-resume.css")
+
+#   depends_on = [ aws_s3_bucket.buck ]
+# }
 
 # Create the S3 bucket policy resource to give public access to the web page
 resource "aws_s3_bucket_policy" "pubilc-policy" {

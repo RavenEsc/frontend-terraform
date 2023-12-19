@@ -23,3 +23,7 @@ variable "domainnameid" {
 variable "reg" {
   default = "us-west-2"
 }
+
+variable "s3_upload_dir" {
+  default = "./Web-Frontend/"
+}
