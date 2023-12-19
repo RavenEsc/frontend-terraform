@@ -5,6 +5,7 @@ resource "aws_s3_bucket" "buck" {
   tags = {
     Name        = "My bucket"
     Environment = "Dev"
+    Mark        = "blog"
   }
 }
 
