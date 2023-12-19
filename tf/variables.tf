@@ -13,5 +13,5 @@ variable "reg" {
 }
 
 variable "s3_upload_dir" {
-  default = "../Web-Frontend"
+  default = "./../Web-Frontend"
 }
