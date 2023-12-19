@@ -28,7 +28,8 @@ resource "aws_s3_object" "index" {
   content_type = "text/html"
   server_side_encryption = "AES256"
   key    = "index.html"
-  source = "Web-Frontend/index.html"
+  # source = "Web-Frontend/index.html"
+  content = file("Web-Frontend/index.html")
 
   depends_on = [ aws_s3_bucket.buck ]
 }
