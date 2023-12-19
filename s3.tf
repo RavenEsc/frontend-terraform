@@ -65,7 +65,7 @@ resource "aws_s3_object" "csstyle" {
 # Create the S3 bucket policy resource to give public access to the web page
 resource "aws_s3_bucket_policy" "pubilc-policy" {
   bucket = aws_s3_bucket.buck.id
-  policy = templatefile("./json/s3-policy.json", { bucket = var.bucketname })
+  policy = templatefile("./s3-policy.json", { bucket = var.bucketname })
   depends_on = [ aws_s3_bucket.buck ]
 }
 
