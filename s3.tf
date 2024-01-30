@@ -31,14 +31,6 @@ error_document {
 EOF
 }
 
-# resource "aws_s3_object" "test" {
-#   for_each = fileset("${var.s3_upload_dir}/", "**")
-#   bucket = var.bucketname
-#   key = each.key
-#   source = "${var.s3_upload_dir}/${each.value}"
-#   etag = filemd5("${var.s3_upload_dir}/${each.value}")
-# }
-
 # Upload the index.html file to the S3 bucket
 resource "aws_s3_object" "error" {
   bucket = var.bucketname
