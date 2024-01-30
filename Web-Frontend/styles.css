@@ -1,0 +1,127 @@
+    body {
+      background-color: black;
+      margin: 0;
+      padding: 0;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      display: flex;
+    }
+    h1 {
+      top: 40px; /* Adjust the top padding as needed */
+      left: 0;
+      width: 90%;
+      background: black;
+      font-family: monospace;
+      font-size: 20px;
+      padding: 10px;
+      margin: 0;
+      box-sizing: border-box;
+      color: lime;
+      overflow: hidden;
+      white-space: nowrap;
+      animation: typing-left-to-right 3s steps(40);
+    }
+
+    @keyframes typing-left-to-right {
+      from {
+        width: 0;
+      }
+      to {
+        width: 90%;
+      }
+    }
+
+    .blinking-caret {
+      animation: blink-caret 1.5s infinite;
+    }
+    @keyframes blink-caret {
+      0% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+    .container {
+      display: flex;
+      width: 97%;
+      height: 10;
+      overflow-x: auto;
+      padding: 20px;
+      scroll-padding: calc(100% - 0px) ;
+      margin-top: 10px; /* Adjust the top margin as needed */
+    }
+    .panel {
+      flex-shrink: 0;
+      width: calc(100vw - 10px);
+      background-color: rgb(41, 3, 3);
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      padding: 40px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .innerPanel {
+      scroll-snap-align: start;
+      width: calc(100vw - 40px);
+      height: 10%;
+      background-color: rgb(0, 0, 0);
+      border-radius: 20px;
+      margin-right: 20px;
+      padding: 20px;
+      align-items: top;
+      justify-content: top;
+      text-wrap: balance;
+    }
+    iframe {
+      background: rgb(26, 2, 26);
+      width: 91%;
+      height: calc(200vw - 2px);
+      padding: 0;
+      align-items: center;
+      overflow-y: auto;
+    }
+    .arrow {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      background-color: rgba(255, 0, 0, 0.5);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      z-index: 1;
+    }
+    .arrow.left {
+      left: 20px;
+    }
+    .arrow.right {
+      right: 20px;
+    }
+    .contact-footer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+      padding: 10px;
+      background-color: black;
+    }
+    .contact-link {
+      color: white;
+      margin: 0 10px;
+      text-decoration: none;
+    }
+    .terminal {
+    --size: 2;
+    --color: lime;
+    }
