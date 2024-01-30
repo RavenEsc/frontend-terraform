@@ -15,6 +15,20 @@ resource "aws_s3_bucket_website_configuration" "config" {
   index_document {
     suffix = "index.html"
   }
+error_document {
+    key = "error.html"
+  }
+
+  routing_rules = <<EOF
+[{
+    "Condition": {
+        "KeyPrefixEquals": "../"
+    },
+    "Redirect": {
+        "ReplaceKeyPrefixWith": ""
+    }
+}]
+EOF
 }
 
 # resource "aws_s3_object" "test" {
