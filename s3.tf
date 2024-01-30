@@ -26,12 +26,12 @@ resource "aws_s3_bucket_website_configuration" "config" {
 # }
 
 # Upload the index.html file to the S3 bucket
-resource "aws_s3_object" "index" {
+resource "aws_s3_object" "error" {
   bucket = var.bucketname
   content_type = "text/html"
   server_side_encryption = "AES256"
-  key    = "index.html"
-  content = file("Web-Frontend/index.html")
+  key    = "error.html"
+  content = file("Web-Frontend/error.html")
 
   depends_on = [ aws_s3_bucket.buck ]
 }
