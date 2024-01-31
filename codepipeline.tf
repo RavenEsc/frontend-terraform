@@ -6,7 +6,6 @@ resource "aws_codepipeline" "codepipeline" {
   artifact_store {
     location = aws_s3_bucket.codepipeline_bucket.bucket
     type     = "S3"
-    region = var.reg
   }
 
   stage {
@@ -18,7 +17,6 @@ resource "aws_codepipeline" "codepipeline" {
       provider         = "CodeStarSourceConnection"
       version          = "2"
       output_artifacts = ["source_output"]
-      region           = "us-east-1"
 
       configuration = {
         ConnectionArn        = aws_codestarconnections_connection.gitrepo-to-aws.arn
@@ -37,7 +35,6 @@ resource "aws_codepipeline" "codepipeline" {
       provider        = "s3"
       input_artifacts = ["source_output"]
       version         = "1"
-      region          = var.reg
       configuration = {
         BucketName = aws_s3_bucket.buck.bucket
         Extract    = true
