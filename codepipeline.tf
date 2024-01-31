@@ -37,7 +37,7 @@ resource "aws_codepipeline" "codepipeline" {
       provider        = "s3"
       input_artifacts = ["source_output"]
       version         = "1"
-      region          = "us-east-1"
+      region          = "us-west-2"
       configuration = {
         BucketName = aws_s3_bucket.buck.bucket
         Extract    = true
