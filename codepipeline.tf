@@ -17,6 +17,7 @@ resource "aws_codepipeline" "codepipeline" {
       provider         = "CodeStarSourceConnection"
       version          = "2"
       output_artifacts = ["source_output"]
+      region           = "us-east-2"
 
       configuration = {
         ConnectionArn        = aws_codestarconnections_connection.gitrepo-to-aws.arn
