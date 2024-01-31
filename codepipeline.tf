@@ -97,7 +97,6 @@ data "aws_iam_policy_document" "codepipeline_policy" {
 
 resource "aws_s3_bucket" "codepipeline_bucket" {
   bucket = "cp-blog-artifact-bucket"
-  region = "us-east-1"
 }
 
 resource "aws_s3_bucket_public_access_block" "codepipeline_bucket_pab" {
