@@ -17,7 +17,7 @@ resource "aws_codepipeline" "codepipeline" {
       provider         = "GitHub"
       version          = "2"
       output_artifacts = ["source_output"]
-      region           = "us-east-2"
+      region           = "us-east-1"
 
       configuration = {
         ConnectionArn        = aws_codestarconnections_connection.gitrepo-to-aws.arn
@@ -36,7 +36,7 @@ resource "aws_codepipeline" "codepipeline" {
       provider        = "s3"
       input_artifacts = ["source_output"]
       version         = "1"
-      region          = "us-east-2"
+      region          = "us-east-1"
       configuration = {
         BucketName = aws_s3_bucket.buck.bucket
         Extract    = true
