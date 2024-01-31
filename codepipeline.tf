@@ -1,10 +1,12 @@
 resource "aws_codepipeline" "codepipeline" {
   name     = "blog-website-deploy-s3"
   role_arn = aws_iam_role.codepipeline_role.arn
+  
 
   artifact_store {
     location = aws_s3_bucket.codepipeline_bucket.bucket
     type     = "S3"
+    region = var.reg
   }
 
   stage {
@@ -16,7 +18,7 @@ resource "aws_codepipeline" "codepipeline" {
       provider         = "CodeStarSourceConnection"
       version          = "2"
       output_artifacts = ["source_output"]
-      region           = var.reg
+      region           = "us-east-1"
 
       configuration = {
         ConnectionArn        = aws_codestarconnections_connection.gitrepo-to-aws.arn
