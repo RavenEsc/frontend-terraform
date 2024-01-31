@@ -15,7 +15,7 @@ resource "aws_codepipeline" "codepipeline" {
       category         = "Source"
       owner            = "ThirdParty"
       provider         = "CodeStarSourceConnection"
-      version          = "2"
+      version          = "1"
       output_artifacts = ["source_output"]
 
       configuration = {
