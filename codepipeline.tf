@@ -13,15 +13,15 @@ resource "aws_codepipeline" "codepipeline" {
       name             = "Source"
       category         = "Source"
       owner            = "ThirdParty"
-      provider         = "GitHub"
+      provider         = "CodeStarSourceConnection"
       version          = "2"
       output_artifacts = ["source_output"]
+      region           = var.reg
 
       configuration = {
-        Owner                = "RavenEsc"
-        Repo                 = "frontend-developer"
-        Branch               = "master"
-        PollForSourceChanges = false
+        ConnectionArn        = aws_codestarconnections_connection.gitrepo-to-aws.arn
+        FullRepositoryId     = "RavenEsc/frontend-developer"
+        BranchName           = "master"
       }
     }
   }
@@ -35,7 +35,7 @@ resource "aws_codepipeline" "codepipeline" {
       provider        = "s3"
       input_artifacts = ["source_output"]
       version         = "1"
-
+      region          = var.reg
       configuration = {
         BucketName = aws_s3_bucket.buck.bucket
         Extract    = true
@@ -84,6 +84,13 @@ data "aws_iam_policy_document" "codepipeline_policy" {
       "${aws_s3_bucket.codepipeline_bucket.arn}/*"
     ]
   }
+
+  statement {
+    effect    = "Allow"
+    actions   = ["codestar-connections:UseConnection"]
+    resources = [aws_codestarconnections_connection.gitrepo-to-aws.arn]
+  }
+
 }
 
 resource "aws_s3_bucket" "codepipeline_bucket" {
@@ -97,4 +104,9 @@ resource "aws_s3_bucket_public_access_block" "codepipeline_bucket_pab" {
   block_public_policy     = true
   ignore_public_acls      = true
   restrict_public_buckets = true
+}
+
+resource "aws_codestarconnections_connection" "gitrepo-to-aws" {
+  name          = "blog-web-dev-connection"
+  provider_type = "GitHub"
 }
