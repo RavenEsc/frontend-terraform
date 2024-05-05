@@ -13,5 +13,9 @@ variable "reg" {
 }
 
 variable "s3_upload_dir" {
-  default = "Web-Frontend"
+  default = "../Web-Frontend"
+}
+
+variable "s3_upload_policy_dir" {
+  default = "../policies"
 }

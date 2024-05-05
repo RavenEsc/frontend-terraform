@@ -37,7 +37,7 @@ resource "aws_s3_object" "error" {
   content_type = "text/html"
   server_side_encryption = "AES256"
   key    = "error.html"
-  content = file("Web-Frontend/error.html")
+  content = file("${var.s3_upload_dir}/error.html")
 
   depends_on = [ aws_s3_bucket.buck ]
 }
@@ -48,7 +48,7 @@ resource "aws_s3_object" "csstyle" {
   content_type = "text/css"
   server_side_encryption = "AES256"
   key    = "styles.css"
-  content = file("Web-Frontend/styles.css")
+  content = file("${var.s3_upload_dir}/styles.css")
 
   depends_on = [ aws_s3_bucket.buck ]
 }
@@ -59,7 +59,7 @@ resource "aws_s3_object" "terminal" {
   content_type = "text/js"
   server_side_encryption = "AES256"
   key    = "terminal.js"
-  content = file("Web-Frontend/terminal.js")
+  content = file("${var.s3_upload_dir}/terminal.js")
 
   depends_on = [ aws_s3_bucket.buck ]
 }
@@ -67,7 +67,7 @@ resource "aws_s3_object" "terminal" {
 # Create the S3 bucket policy resource to give public access to the web page
 resource "aws_s3_bucket_policy" "pubilc-policy" {
   bucket = aws_s3_bucket.buck.id
-  policy = templatefile("./s3-policy.json", { bucket = var.bucketname })
+  policy = templatefile("${var.s3_upload_dir}/s3-policy.json", { bucket = var.bucketname })
   depends_on = [ aws_s3_bucket.buck ]
 }
 
