@@ -1,11 +1,11 @@
 # IMPORTANTE 
 
 variable "bucketname" {
-  default = "my-resume-bucket1221"
+  default = "*************"
 }
 
 variable "domainname" {
-  default = "ravenspencer.com"
+  default = "************.com"
 }
 
 variable "reg" {
